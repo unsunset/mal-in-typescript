@@ -56,3 +56,15 @@ export class MalSymbol extends MalVal {
     return this.symbolName;
   }
 }
+
+export class MalFunc extends MalVal {
+  func: Function; 
+  constructor(func: Function) {
+    super();
+    this.func = func;
+  }
+
+  toString() {
+    return "#" + this.func.toString();
+  }
+}

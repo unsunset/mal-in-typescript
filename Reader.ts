@@ -26,13 +26,15 @@ export class Reader {
 
   static read_str(input: string): MalVal {
     let tokens = Reader.tokenizer(input);
+    console.log("tokens is " + tokens);
     tokens = tokens.map((token) => {
       return token.trim();
     }).filter((token) => {
       return token != '';
     });
     const reader = new Reader(tokens);
-    return reader.read_form();
+    const result = reader.read_form();
+    return result;
   }
 
   static tokenizer(input: string): Array<string> {
