@@ -15,6 +15,7 @@ export class Env {
   }
 
   set(key: string, value: MalVal) {
+    console.log(`set ${key} to ${value} `);
     this.data.set(key, value);
   }
 
@@ -29,7 +30,6 @@ export class Env {
   }
 
   get(key: string): MalVal {
-    console.log("get " + key + " from env.");
     let value = this.find(key);
     console.log("get " + key + " is " + value);
     if (value == null) {

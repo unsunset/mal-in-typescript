@@ -69,7 +69,26 @@ function EVAL(input: MalVal, env): MalVal {
           inner.set(odd.symbolName, EVAL(even, inner));
         }
         return EVAL(ast[2], inner);
+      } else if (name == "do") {
+        
+      } else if (name == "if") {
+        
       } else {
+        let holds = input.holds;
+        if (holds[0] instanceof MalList) {
+          let fn = holds[0] as MalList;
+          let symbol = fn.holds[0] as MalSymbol;
+          if (symbol.symbolName == "fn*") {
+            let formalParams = fn.holds[1] as MalList;
+            let inner = new Env(env);
+            for (let i = 0; i < formalParams.holds.length; i++) {
+              inner.set(formalParams.holds[i].toString(), holds[i + 1]);
+            }
+            return EVAL(fn.holds[2], inner);
+          }
+        } else if((holds[0] as MalSymbol).symbolName == "fn*" ){
+          return new MalSymbol("#function");
+        }
         let list = eval_ast(input, env) as Array<any>;
         let first = list[0];
         let result = first(...list.slice(1));
